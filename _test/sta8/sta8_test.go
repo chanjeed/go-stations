@@ -3,7 +3,6 @@ package sta8_test
 import (
 	"context"
 	"errors"
-	"log"
 	"os"
 	"testing"
 	"time"
@@ -64,9 +63,7 @@ func TestStation8(t *testing.T) {
 
 			svc := service.NewTODOService(d)
 			got, err := svc.CreateTODO(context.Background(), tc.Subject, tc.Description)
-			log.Println(got)
-
-			return
+			t.Error(got)
 			switch tc.WantError {
 			case nil:
 				if err != nil {
