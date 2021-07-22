@@ -26,6 +26,11 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 		insert  = `INSERT INTO todos(subject, description) VALUES(?, ?)`
 		confirm = `SELECT subject, description, created_at, updated_at FROM todos WHERE id = ?`
 	)
+	if len(subject) == 0 || len(description) == 0 {
+		log.Println("subject and description should not be empty")
+		return nil, nil
+	}
+
 	insertStmt, err := s.db.PrepareContext(ctx, insert)
 	if err != nil {
 		log.Println(err)
@@ -43,7 +48,7 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 	if err != nil {
 		log.Println(err)
 	}
-	return todo, nil
+	return todo, err
 }
 
 // ReadTODO reads TODOs on DB.
