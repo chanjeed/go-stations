@@ -52,7 +52,7 @@ func realMain() error {
 	mux := http.NewServeMux()
 
 	// TODO: ここから実装を行う
-	mux.Handle("/healthz", handler.NewHealthzHandler)
+	mux.Handle("/healthz", handler.NewHealthzHandler())
 	log.Fatal(http.ListenAndServe(port, mux))
 
 	return nil
