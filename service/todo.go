@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"github.com/TechBowl-japan/go-stations/model"
+	"github.com/mattn/go-sqlite3"
 )
 
 // A TODOService implements CRUD of TODO entities.
@@ -26,9 +27,9 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 		insert  = `INSERT INTO todos(subject, description) VALUES(?, ?)`
 		confirm = `SELECT subject, description, created_at, updated_at FROM todos WHERE id = ?`
 	)
-	if len(subject) == 0 || len(description) == 0 {
-		log.Println("subject and description should not be empty")
-		return nil, nil
+	if len(subject) == 0 {
+		log.Println("subject should not be empty")
+		return nil, sqlite3.ErrConstraint
 	}
 
 	insertStmt, err := s.db.PrepareContext(ctx, insert)
