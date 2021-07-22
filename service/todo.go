@@ -38,12 +38,12 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 	if err != nil {
 		log.Println(err)
 	}
-	var todo model.TODO
+	todo := &model.TODO{}
 	err = confirmStmt.QueryRowContext(ctx, id).Scan(&todo)
 	if err != nil {
 		log.Println(err)
 	}
-	return nil, nil
+	return todo, nil
 }
 
 // ReadTODO reads TODOs on DB.
