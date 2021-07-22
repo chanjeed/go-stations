@@ -45,7 +45,7 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 		log.Println(err)
 	}
 	todo := &model.TODO{}
-	err = confirmStmt.QueryRowContext(ctx, id).Scan(&todo)
+	err = confirmStmt.QueryRowContext(ctx, id).Scan(todo)
 	if err != nil {
 		log.Println(err)
 	}
