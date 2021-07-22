@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@techtrain/cli-railway@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@techtrain/cli-railway/-/cli-railway-0.1.1.tgz#6a121a1b47cc4c2725bacdbda7aa9dabe2b2c13d"
-  integrity sha512-x3ZckGFEzP0xlp5BJD/epmYM2Lp5z3R+2tIO+EBo3nfsxVhm5GvGQcqqSjhLv+Va2biFVPhK+uvnYMOoxWR3KA==
+"@techtrain/cli-railway@0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@techtrain/cli-railway/-/cli-railway-0.1.2.tgz#ab045c9e2a5b6a013f644e6369828103c12e1147"
+  integrity sha512-o/qL8wXepmaiYE6J3UjtlVBDWzBBnOmjt9Po2FUX9byT83vpL02uNFO5pd538Eq8P+Aa9LMOzXt6lVLMkeYjrg==
 
 simple-git-hooks@^2.5.1:
   version "2.5.1"
