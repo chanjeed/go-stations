@@ -27,6 +27,8 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 		insert  = `INSERT INTO todos(subject, description) VALUES(?, ?)`
 		confirm = `SELECT subject, description, created_at, updated_at FROM todos WHERE id = ?`
 	)
+	log.Println(subject)
+	log.Println(description)
 	if len(subject) == 0 {
 		log.Println("subject should not be empty")
 		return nil, sqlite3.ErrConstraint
@@ -35,22 +37,31 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 	insertStmt, err := s.db.PrepareContext(ctx, insert)
 	if err != nil {
 		log.Println(err)
+		return nil, err
 	}
 	confirmStmt, err := s.db.PrepareContext(ctx, confirm)
 	if err != nil {
 		log.Println(err)
+		return nil, err
 	}
-	id, err := insertStmt.ExecContext(ctx, subject, description)
+	result, err := insertStmt.ExecContext(ctx, subject, description)
 	if err != nil {
 		log.Println(err)
+		return nil, err
 	}
-	todo := &model.TODO{}
+	id, err := result.LastInsertId()
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	todo := &model.TODO{ID: int(id)}
 	err = confirmStmt.QueryRowContext(ctx, id).Scan(&todo.Subject, &todo.Description, &todo.CreatedAt, &todo.UpdatedAt)
 	if err != nil {
 		log.Println(err)
-
+		return nil, err
 	}
-	return todo, err
+	return todo, nil
 }
 
 // ReadTODO reads TODOs on DB.
